@@ -1,6 +1,7 @@
-package services
+package Tavern
 
 import (
+	"ddd-go/services/Order"
 	"github.com/google/uuid"
 	"log"
 )
@@ -8,7 +9,7 @@ import (
 type TavernConfiguration func(os *Tavern) error
 
 type Tavern struct {
-	OrderService   *OrderService
+	OrderService   *Order.OrderService
 	BillingService interface{}
 }
 
@@ -24,7 +25,7 @@ func NewTavern(cfgs ...TavernConfiguration) (*Tavern, error) {
 	return t, nil
 }
 
-func WithOrderService(os *OrderService) TavernConfiguration {
+func WithOrderService(os *Order.OrderService) TavernConfiguration {
 	return func(t *Tavern) error {
 		t.OrderService = os
 		return nil

@@ -1,4 +1,4 @@
-package services
+package Order
 
 import (
 	"ddd-go/domain/customer"

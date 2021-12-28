@@ -1,4 +1,4 @@
-package services
+package Order
 
 import (
 	"context"
@@ -100,4 +100,16 @@ func (o *OrderService) CreateOrder(customerID uuid.UUID, productIDs []uuid.UUID)
 	log.Printf("Customer: %s has ordered %d products", c.GetID(), len(products))
 
 	return price, nil
+}
+
+func (o *OrderService) AddCustomer(name string) (uuid.UUID, error) {
+	c, err := customer.NewCustomer(name)
+	if err != nil {
+		return uuid.Nil, err
+	}
+	err = o.customers.Add(c)
+	if err != nil {
+		return uuid.Nil, err
+	}
+	return c.GetID(), nil
 }
