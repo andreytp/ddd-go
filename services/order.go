@@ -2,7 +2,6 @@ package services
 
 import (
 	"context"
-	"ddd-go/aggregate"
 	"ddd-go/domain/customer"
 	"ddd-go/domain/customer/memory"
 	"ddd-go/domain/customer/mongo"
@@ -63,7 +62,7 @@ func WithMongoCustomerRepository(connectionString string) OrderConfiguration {
 
 // WithMemoryProductRepository adds a in memory product repo and adds all input
 // products
-func WithMemoryProductRepository(products []aggregate.Product) OrderConfiguration {
+func WithMemoryProductRepository(products []product.Product) OrderConfiguration {
 	return func(os *OrderService) error {
 		pr := prodmemory.New()
 
@@ -87,7 +86,7 @@ func (o *OrderService) CreateOrder(customerID uuid.UUID, productIDs []uuid.UUID)
 	}
 	_ = c
 
-	var products []aggregate.Product
+	var products []product.Product
 	var price float64
 	for _, id := range productIDs {
 		p, err := o.products.GetByID(id)

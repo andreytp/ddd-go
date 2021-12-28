@@ -2,7 +2,7 @@ package mongo
 
 import (
 	"context"
-	"ddd-go/aggregate"
+	"ddd-go/domain/customer"
 	"github.com/google/uuid"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -20,15 +20,15 @@ type mongoCustomer struct {
 	Name string    `bson:"name"`
 }
 
-func NewFromCustomer(customer aggregate.Customer) mongoCustomer {
+func NewFromCustomer(customer customer.Customer) mongoCustomer {
 	return mongoCustomer{
 		ID:   customer.GetID(),
 		Name: customer.GetName(),
 	}
 }
 
-func (m mongoCustomer) ToAggregate() aggregate.Customer {
-	c := aggregate.Customer{}
+func (m mongoCustomer) ToAggregate() customer.Customer {
+	c := customer.Customer{}
 	c.SetID(m.ID)
 	c.SetName(m.Name)
 	return c
@@ -49,7 +49,7 @@ func New(ctx context.Context, connectionString string) (*MongoRepository, error)
 	}, nil
 }
 
-func (mr MongoRepository) Get(id uuid.UUID) (aggregate.Customer, error) {
+func (mr MongoRepository) Get(id uuid.UUID) (customer.Customer, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
@@ -57,13 +57,13 @@ func (mr MongoRepository) Get(id uuid.UUID) (aggregate.Customer, error) {
 	var c mongoCustomer
 	err := result.Decode(&c)
 	if err != nil {
-		return aggregate.Customer{}, err
+		return customer.Customer{}, err
 	}
 
 	return c.ToAggregate(), nil
 }
 
-func (mr *MongoRepository) Add(c aggregate.Customer) error {
+func (mr *MongoRepository) Add(c customer.Customer) error {
 	ctx, cancelFunc := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancelFunc()
 	internal := NewFromCustomer(c)
@@ -74,7 +74,7 @@ func (mr *MongoRepository) Add(c aggregate.Customer) error {
 
 	return nil
 }
-func (mr *MongoRepository) Update(c aggregate.Customer) error {
+func (mr *MongoRepository) Update(c customer.Customer) error {
 	ctx, cancelFunc := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancelFunc()
 	internal := NewFromCustomer(c)

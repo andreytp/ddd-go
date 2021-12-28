@@ -1,7 +1,6 @@
 package memory
 
 import (
-	"ddd-go/aggregate"
 	"ddd-go/domain/product"
 	"testing"
 
@@ -10,7 +9,7 @@ import (
 
 func TestMemoryProductRepository_Add(t *testing.T) {
 	repo := New()
-	newProduct, err := aggregate.NewProduct("Beer", "Good for your health", 1.99)
+	newProduct, err := product.NewProduct("Beer", "Good for your health", 1.99)
 	if err != nil {
 		t.Error(err)
 	}
@@ -22,7 +21,7 @@ func TestMemoryProductRepository_Add(t *testing.T) {
 
 func TestMemoryProductRepository_Get(t *testing.T) {
 	repo := New()
-	existingProduct, err := aggregate.NewProduct("Beer", "Good for your health", 1.99)
+	existingProduct, err := product.NewProduct("Beer", "Good for your health", 1.99)
 	if err != nil {
 		t.Error(err)
 	}
@@ -62,7 +61,7 @@ func TestMemoryProductRepository_Get(t *testing.T) {
 
 func TestMemoryProductRepository_Delete(t *testing.T) {
 	repo := New()
-	existingProduct, err := aggregate.NewProduct("Beer", "Good for your health", 1.99)
+	existingProduct, err := product.NewProduct("Beer", "Good for your health", 1.99)
 	if err != nil {
 		t.Error(err)
 	}

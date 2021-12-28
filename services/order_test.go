@@ -1,7 +1,8 @@
 package services
 
 import (
-	"ddd-go/aggregate"
+	"ddd-go/domain/customer"
+	"ddd-go/domain/product"
 	"github.com/google/uuid"
 	"testing"
 )
@@ -17,7 +18,7 @@ func TestOrder_NewOrderService(t *testing.T) {
 		t.Error(err)
 	}
 
-	cust, err := aggregate.NewCustomer("Percy")
+	cust, err := customer.NewCustomer("Percy")
 	if err != nil {
 		t.Error(err)
 	}
@@ -37,23 +38,23 @@ func TestOrder_NewOrderService(t *testing.T) {
 	}
 }
 
-func initProducts(t *testing.T) []aggregate.Product {
-	beer, err := aggregate.NewProduct("Beer", "Healthy Beverage", 1.99)
+func initProducts(t *testing.T) []product.Product {
+	beer, err := product.NewProduct("Beer", "Healthy Beverage", 1.99)
 	if err != nil {
 		t.Error(err)
 	}
 
-	wine, err := aggregate.NewProduct("Wine", "Healthy Beverage", 0.99)
+	wine, err := product.NewProduct("Wine", "Healthy Beverage", 0.99)
 	if err != nil {
 		t.Error(err)
 	}
 
-	peanuts, err := aggregate.NewProduct("Peanuts", "Healthy snacks", 0.99)
+	peanuts, err := product.NewProduct("Peanuts", "Healthy snacks", 0.99)
 	if err != nil {
 		t.Error(err)
 	}
 
-	products := []aggregate.Product{
+	products := []product.Product{
 		beer, wine, peanuts,
 	}
 
