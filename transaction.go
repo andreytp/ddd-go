@@ -1,4 +1,4 @@
-package valueobject
+package ddd_go
 
 import (
 	"github.com/google/uuid"

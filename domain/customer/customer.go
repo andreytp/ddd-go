@@ -1,10 +1,9 @@
 package customer
 
 import (
+	"ddd-go"
 	"errors"
 
-	"ddd-go/entity"
-	"ddd-go/valueobject"
 	"github.com/google/uuid"
 )
 
@@ -13,9 +12,9 @@ var (
 )
 
 type Customer struct {
-	person       *entity.Person
-	products     []*entity.Item
-	transactions []valueobject.Transaction
+	person       *ddd_go.Person
+	products     []*ddd_go.Item
+	transactions []ddd_go.Transaction
 }
 
 func NewCustomer(name string) (Customer, error) {
@@ -23,15 +22,15 @@ func NewCustomer(name string) (Customer, error) {
 		return Customer{}, ErrInvalidPerson
 
 	}
-	person := &entity.Person{
+	person := &ddd_go.Person{
 		Name: name,
 		ID:   uuid.New(),
 	}
 
 	return Customer{
 		person:       person,
-		products:     make([]*entity.Item, 0),
-		transactions: make([]valueobject.Transaction, 0),
+		products:     make([]*ddd_go.Item, 0),
+		transactions: make([]ddd_go.Transaction, 0),
 	}, nil
 }
 
@@ -41,14 +40,14 @@ func (c *Customer) GetID() uuid.UUID {
 
 func (c *Customer) SetID(id uuid.UUID) {
 	if c.person == nil {
-		c.person = &entity.Person{}
+		c.person = &ddd_go.Person{}
 	}
 	c.person.ID = id
 }
 
 func (c *Customer) SetName(name string) {
 	if c.person == nil {
-		c.person = &entity.Person{}
+		c.person = &ddd_go.Person{}
 	}
 	c.person.Name = name
 }

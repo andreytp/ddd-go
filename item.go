@@ -1,4 +1,4 @@
-package entity
+package ddd_go
 
 import "github.com/google/uuid"
 
