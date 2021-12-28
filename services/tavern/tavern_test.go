@@ -1,8 +1,8 @@
-package Tavern
+package tavern
 
 import (
 	"ddd-go/domain/product"
-	"ddd-go/services/Order"
+	"ddd-go/services/order"
 	"github.com/google/uuid"
 	"testing"
 )
@@ -34,8 +34,8 @@ func init_products(t *testing.T) []product.Product {
 func TestTavern(t *testing.T) {
 	products := init_products(t)
 
-	os, err := Order.NewOrderService(Order.WithMemoryCustomerRepository(),
-		Order.WithMemoryProductRepository(products),
+	os, err := order.NewOrderService(order.WithMemoryCustomerRepository(),
+		order.WithMemoryProductRepository(products),
 	)
 	if err != nil {
 		t.Error(err)
@@ -64,9 +64,9 @@ func TestTavern(t *testing.T) {
 func Test_MongoTavern(t *testing.T) {
 	products := init_products(t)
 
-	os, err := Order.NewOrderService(
-		Order.WithMongoCustomerRepository("mongodb://localhost:27017"),
-		Order.WithMemoryProductRepository(products),
+	os, err := order.NewOrderService(
+		order.WithMongoCustomerRepository("mongodb://localhost:27017"),
+		order.WithMemoryProductRepository(products),
 	)
 	if err != nil {
 		t.Error(err)
