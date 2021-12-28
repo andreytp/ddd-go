@@ -12,9 +12,9 @@ var (
 )
 
 type Customer struct {
-	person       *ddd_go.Person
-	products     []*ddd_go.Item
-	transactions []ddd_go.Transaction
+	person       *tavern.Person
+	products     []*tavern.Item
+	transactions []tavern.Transaction
 }
 
 func NewCustomer(name string) (Customer, error) {
@@ -22,15 +22,15 @@ func NewCustomer(name string) (Customer, error) {
 		return Customer{}, ErrInvalidPerson
 
 	}
-	person := &ddd_go.Person{
+	person := &tavern.Person{
 		Name: name,
 		ID:   uuid.New(),
 	}
 
 	return Customer{
 		person:       person,
-		products:     make([]*ddd_go.Item, 0),
-		transactions: make([]ddd_go.Transaction, 0),
+		products:     make([]*tavern.Item, 0),
+		transactions: make([]tavern.Transaction, 0),
 	}, nil
 }
 
@@ -40,14 +40,14 @@ func (c *Customer) GetID() uuid.UUID {
 
 func (c *Customer) SetID(id uuid.UUID) {
 	if c.person == nil {
-		c.person = &ddd_go.Person{}
+		c.person = &tavern.Person{}
 	}
 	c.person.ID = id
 }
 
 func (c *Customer) SetName(name string) {
 	if c.person == nil {
-		c.person = &ddd_go.Person{}
+		c.person = &tavern.Person{}
 	}
 	c.person.Name = name
 }
